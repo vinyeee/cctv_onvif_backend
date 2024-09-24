@@ -1,5 +1,6 @@
 package biz.bigtablet.cctvonvifbackend.service;
 
+import com.github.kokorin.jaffree.LogLevel;
 import com.github.kokorin.jaffree.ffmpeg.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,12 +22,17 @@ public class VideoStreamService {
                 .addOutput(PipeOutput.pumpTo(OutputStream.nullOutputStream())
                         .setFormat("mpegts")
                         .addArguments("-vcodec", "copy")
-                        .addArguments("-acodec", "copy"));
+                        .addArguments("-acodec", "copy"))
+                .setLogLevel(LogLevel.INFO);;
 
         // FFmpeg 실행
-        FFmpegResult result = ffmpeg.execute();
 
-        // 비디오 스트림을 클라이언트에 전송
 
+        try{
+            FFmpegResult result = ffmpeg.execute();
+            logger.info("FFmpeg finished successfully");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }
