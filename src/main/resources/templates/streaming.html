@@ -10,7 +10,7 @@
   <script>
 
     const video = document.getElementById("video");
-    const ws = new WebSocket("ws://localhost:8080/stream1");
+    const ws = new WebSocket("ws://localhost:8080/stream");
 
     ws.binaryType = "arraybuffer"; // 바이너리 데이터 수신
     ws.onmessage = (event) => {
